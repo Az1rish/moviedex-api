@@ -4,10 +4,11 @@ const morgan = require('morgan')
 const helmet = require('helmet')
 const cors = require('cors')
 const movieData = require('./movieData.json')
+const morganSetting = process.env.NODE_ENV === 'production' ? 'tiny' : 'dev'
 
 const app = express()
 
-app.use(morgan('dev'))
+app.use(morgan(morganSetting))
 app.use(helmet())
 app.use(cors())
 
