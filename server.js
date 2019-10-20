@@ -1,6 +1,8 @@
 require('dotenv').config()
 const express = require('express')
 const morgan = require('morgan')
+const helmet = require('helmet')
+const cors = require('cors')
 const movieData = require('./movieData.json')
 
 console.log(process.env.API_TOKEN)
@@ -8,6 +10,8 @@ console.log(process.env.API_TOKEN)
 const app = express()
 
 app.use(morgan('dev'))
+app.use(helmet())
+app.use(cors())
 
 app.use(function validateBearerToken(req, res, next) {
     const apiToken = process.env.API_TOKEN
@@ -21,7 +25,7 @@ app.use(function validateBearerToken(req, res, next) {
 
 function handleGetMovie(req, res) {
     const { genre, country, avg_vote } = req.query
-    let response
+    let response = movieData
 
     if(genre) {
         response = movieData.filter(movie =>
