@@ -5,8 +5,6 @@ const helmet = require('helmet')
 const cors = require('cors')
 const movieData = require('./movieData.json')
 
-console.log(process.env.API_TOKEN)
-
 const app = express()
 
 app.use(morgan('dev'))
@@ -28,19 +26,19 @@ function handleGetMovie(req, res) {
     let response = movieData
 
     if(genre) {
-        response = movieData.filter(movie =>
+        response = response.filter(movie =>
             movie.genre.toLowerCase().includes(genre.toLowerCase())
         )
     }
 
     if(country) {
-        response = movieData.filter(movie =>
+        response = response.filter(movie =>
             movie.country.toLowerCase().includes(country.toLowerCase())
         )
     }
 
     if(avg_vote) {
-        response = movieData.filter(movie =>
+        response = response.filter(movie =>
             Number(movie.avg_vote) >= Number(avg_vote)
         )
     }
